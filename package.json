@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc",
     "preversion": "npm run build && git add dist",
-    "postversion": "git reset HEAD~1 --hard",
-    "patch-release": "npm version patch && npm publish && git push --follow-tags"
+    "patch-release": "npm version patch && npm publish && git push --follow-tags && git reset HEAD~1 --hard"
   },
   "bin": {
     "init": "dist/initConfig.ts"
