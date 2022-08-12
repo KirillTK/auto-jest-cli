@@ -1,3 +1,5 @@
 #! /usr/bin/env node
+import * as shell from 'shelljs';
 
-console.log('here');
+shell.exec("echo shell.exec works");
+
