@@ -1,0 +1,1 @@
+# auto-jest-cli
