@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "run": ""
+    "preversion": "npn run build && git add dist",
+    "postversion": "git reset HEAD~1 --hard",
+    "patch-release": "npm version patch && npm publish && git push --follow-tags"
   },
   "bin": {
     "init": "dist/initConfig.ts"
