@@ -2,7 +2,6 @@
   "name": "auto-jest-cli",
   "version": "1.0.0",
   "description": "auto-jest",
-  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "preversion": "npm run build && git add dist",
