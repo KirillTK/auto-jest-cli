@@ -1,0 +1,26 @@
+{
+  "name": "auto-jest-cli",
+  "version": "1.0.0",
+  "description": "auto-jest",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "run": ""
+  },
+  "bin": {
+    "init": "dist/initConfig.ts"
+  },
+  "keywords": [
+    "auto",
+    "jest",
+    "cli"
+  ],
+  "author": "KirillTK",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^9.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
