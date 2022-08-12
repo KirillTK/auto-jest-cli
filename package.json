@@ -1,6 +1,6 @@
 {
   "name": "auto-jest-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "auto-jest",
   "scripts": {
     "build": "tsc",
