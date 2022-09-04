@@ -14,10 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: borales/actions-yarn@v3.0.0
         with:
-          node-version: 16
-      - run: npm i
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run build --if-present
+          cmd: install
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: lint
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: test
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: build
