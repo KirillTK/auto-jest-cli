@@ -1,3 +1,3 @@
 export enum ArgumentEnum {
-  API = 'api'
+  API = 'api',
 }

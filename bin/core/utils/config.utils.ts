@@ -20,4 +20,4 @@ export const getCommandArgumentByName = <R, T = keyof ArgumentEnum>(argument: Ar
   const argv = minimist<T>(process.argv.slice(2));
 
   return argv[argument];
-}
+};

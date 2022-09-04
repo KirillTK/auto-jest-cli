@@ -2,3 +2,4 @@
 /lib
 .idea
 dist
+yarn-error.log

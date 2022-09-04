@@ -4,15 +4,15 @@ import * as fs from 'fs';
 import { getFileExports, createFileDir } from '../../core/utils';
 
 const getMockApiTemplate = (methodName: string) => {
-  return `export const ${methodName} = () => Promise.resolve().then(() => ({ data: '' }));`
-}
+  return `export const ${methodName} = () => Promise.resolve().then(() => ({ data: '' }));`;
+};
 
 const generateTestImport = (methodNames: string[], fileName: string) => {
   const methods = methodNames.reduce((accum, method, index) => {
-    return accum + method + (index === methodNames.length - 1 ? ' ' : ', ')
+    return accum + method + (index === methodNames.length - 1 ? ' ' : ', ');
   }, '');
 
-  return `import { ${methods}} from '../${fileName}`
+  return `import { ${methods}} from '../${fileName}`;
 };
 
 const generateTestBody = (methodNames: string[]) => {
@@ -22,7 +22,7 @@ const generateTestBody = (methodNames: string[]) => {
     await expect(${method}()).resolves.toEqual({ data: '' });
   });` + '\n\t';
   }, '');
-}
+};
 
 const getTestApiTemplate = (methodNames: string[], fileName: string) => {
   const fileNameWithoutExt = fileName.replace('.ts', '');
@@ -34,8 +34,8 @@ jest.mock('../${fileNameWithoutExt}');
 describe('Test ${fileNameWithoutExt}', () => {
 
   ${generateTestBody(methodNames)}
-});`
-}
+});`;
+};
 
 const createMockApiFile = (exportMethods: string[], fileName: string) => {
   createFileDir(TestFolderNameEnum.MOCK);
@@ -45,16 +45,16 @@ const createMockApiFile = (exportMethods: string[], fileName: string) => {
   }, '');
 
   fs.writeFileSync(`./${TestFolderNameEnum.MOCK}/${fileName}`, mocks);
-}
+};
 
 
 const createTestFile = (exportMethods: string[], fileName: string) => {
   createFileDir(TestFolderNameEnum.TESTS);
 
-  const testFile = getTestApiTemplate(exportMethods, fileName)
+  const testFile = getTestApiTemplate(exportMethods, fileName);
 
   fs.writeFileSync(`./${TestFolderNameEnum.TESTS}/${fileName}`, testFile);
-}
+};
 
 
 // --api='fileName.ts'
