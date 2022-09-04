@@ -6,4 +6,4 @@ export const mock = () => {};
 
 mockApi();
 
-console.log(process.argv);
+console.log(process.argv, 'process.argv');
