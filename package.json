@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "auto-jest",
   "scripts": {
-    "build": "rm -r dist && tsc",
+    "build": "tsc",
     "update-cli:local": "npm run build && npm uninstall auto-jest-cli -g && npm install -g . ",
     "preversion": "npm run build && git add dist",
     "patch-release": "npm version patch && git push --follow-tags --force && git reset HEAD~1 --hard",
