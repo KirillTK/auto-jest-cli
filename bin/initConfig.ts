@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
-import { mockApi } from './redux-toolkit';
+import { MockThunk  } from './redux-toolkit';
 
 export const mock = () => {};
 
-mockApi();
+new MockThunk().mockThunk();
 
 console.log(process.argv);

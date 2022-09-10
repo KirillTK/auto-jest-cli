@@ -21,3 +21,5 @@ export const getFileExports = async (fileName: string): Promise<string[] | undef
       .replace('export const ', '')
       .replace('export function ', ''));
 };
+
+export const removeFileExtension = (fileName: string) => fileName.replace('.ts', '');

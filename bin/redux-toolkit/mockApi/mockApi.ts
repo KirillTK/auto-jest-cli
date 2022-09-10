@@ -1,18 +1,10 @@
-import { getCommandArgumentByName } from '../../core/utils';
+import { generateTestImport, getCommandArgumentByName, removeFileExtension } from '../../core/utils';
 import { ArgumentEnum, TestFolderNameEnum } from '../../core/enum';
 import * as fs from 'fs';
 import { getFileExports, createFileDir } from '../../core/utils';
 
 const getMockApiTemplate = (methodName: string) => {
   return `export const ${methodName} = () => Promise.resolve().then(() => ({ data: '' }));`;
-};
-
-const generateTestImport = (methodNames: string[], fileName: string) => {
-  const methods = methodNames.reduce((accum, method, index) => {
-    return accum + method + (index === methodNames.length - 1 ? ' ' : ', ');
-  }, '');
-
-  return `import { ${methods}} from '../${fileName}`;
 };
 
 const generateTestBody = (methodNames: string[]) => {
@@ -25,7 +17,7 @@ const generateTestBody = (methodNames: string[]) => {
 };
 
 const getTestApiTemplate = (methodNames: string[], fileName: string) => {
-  const fileNameWithoutExt = fileName.replace('.ts', '');
+  const fileNameWithoutExt = removeFileExtension(fileName);
 
   return `${generateTestImport(methodNames, fileNameWithoutExt)}';
   

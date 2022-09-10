@@ -13,7 +13,7 @@
   },
   "main": "./dist/index.js",
   "bin": {
-    "createJestTemplate": "./dist/initConfig.js"
+    "auto-jest": "./dist/index.js"
   },
   "keywords": [
     "auto",
