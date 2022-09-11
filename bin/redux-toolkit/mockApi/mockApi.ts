@@ -1,7 +1,10 @@
-import { generateTestImport, getCommandArgumentByName, removeFileExtension } from '../../core/utils';
+import {
+  FileSystemUtils,
+  generateTestImport,
+  getCommandArgumentByName,
+} from '../../core/utils';
 import { ArgumentEnum, TestFolderNameEnum } from '../../core/enum';
 import * as fs from 'fs';
-import { getFileExports, createFileDir } from '../../core/utils';
 
 const getMockApiTemplate = (methodName: string) => {
   return `export const ${methodName} = () => Promise.resolve().then(() => ({ data: '' }));`;
@@ -17,7 +20,7 @@ const generateTestBody = (methodNames: string[]) => {
 };
 
 const getTestApiTemplate = (methodNames: string[], fileName: string) => {
-  const fileNameWithoutExt = removeFileExtension(fileName);
+  const fileNameWithoutExt = FileSystemUtils.removeFileExtension(fileName);
 
   return `${generateTestImport(methodNames, fileNameWithoutExt)}';
   
@@ -30,7 +33,7 @@ describe('Test ${fileNameWithoutExt}', () => {
 };
 
 const createMockApiFile = (exportMethods: string[], fileName: string) => {
-  createFileDir(TestFolderNameEnum.MOCK);
+  FileSystemUtils.createFileDir(TestFolderNameEnum.MOCK);
 
   const mocks = exportMethods.reduce((accum, method) => {
     return accum + getMockApiTemplate(method) + '\n';
@@ -41,7 +44,7 @@ const createMockApiFile = (exportMethods: string[], fileName: string) => {
 
 
 const createTestFile = (exportMethods: string[], fileName: string) => {
-  createFileDir(TestFolderNameEnum.TESTS);
+  FileSystemUtils.createFileDir(TestFolderNameEnum.TESTS);
 
   const testFile = getTestApiTemplate(exportMethods, fileName);
 
@@ -55,7 +58,7 @@ export const mockApi = async () => {
   const apiFileName = getCommandArgumentByName<string>(ArgumentEnum.API);
 
   try {
-    const exportMethods = await getFileExports(apiFileName);
+    const exportMethods = await FileSystemUtils.getFileExports(apiFileName);
 
     if (!exportMethods) {
       throw Error('No exports found!');

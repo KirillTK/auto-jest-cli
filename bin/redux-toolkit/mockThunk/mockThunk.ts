@@ -1,9 +1,8 @@
 import * as fs from 'fs';
 import {
-  createFileDir,
   generateTestImport,
   getCommandArgumentByName,
-  getFileExports, removeFileExtension,
+  FileSystemUtils,
 } from '../../core/utils';
 import { ArgumentEnum, TestFolderNameEnum } from '../../core/enum';
 
@@ -47,8 +46,8 @@ ${tests}
   };
 
   private writeFile = (thunks: string[], fileName: string, mockApiFile: string): void => {
-    createFileDir(TestFolderNameEnum.TESTS);
-    const testFile = this.generateFileTemplate(thunks, removeFileExtension(fileName), removeFileExtension(mockApiFile || ''));
+    FileSystemUtils.createFileDir(TestFolderNameEnum.TESTS);
+    const testFile = this.generateFileTemplate(thunks, FileSystemUtils.removeFileExtension(fileName), FileSystemUtils.removeFileExtension(mockApiFile || ''));
 
     fs.writeFileSync(`./${TestFolderNameEnum.TESTS}/${fileName}`, testFile);
   };
@@ -57,10 +56,8 @@ ${tests}
     const thunkFileName = getCommandArgumentByName<string>(ArgumentEnum.THUNK);
     const apiFileName = getCommandArgumentByName<string>(ArgumentEnum.API);
 
-    console.log(apiFileName, 'apiFileName');
-
     try {
-      const exportMethods = await getFileExports(thunkFileName);
+      const exportMethods = await FileSystemUtils.getFileExports(thunkFileName);
 
       if (!exportMethods) {
         throw Error('No exports found!');

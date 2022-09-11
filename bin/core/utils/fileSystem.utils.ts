@@ -1,25 +1,34 @@
 import * as fs from 'fs';
 
+export class FileSystemUtils {
+  static createFileDir = (folderName: string): void => {
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName);
+    }
+  };
 
-const fileParser = async (fileName: string): Promise<string> => {
-  return fs.promises.readFile(`${process.cwd()}/${fileName}`, 'utf-8');
-};
+  static fileParser = async (fileName: string): Promise<string> => {
+    return fs.promises.readFile(`${process.cwd()}/${fileName}`, 'utf-8');
+  };
 
-export const createFileDir = (folderName: string): void => {
-  if (!fs.existsSync(folderName)) {
-    fs.mkdirSync(folderName);
-  }
-};
+  static removeFileExtension = (fileName: string) => ['.tsx', '.ts'].reduce((accum, ext) => {
+    return accum.replace(ext, '');
+  }, fileName);
 
-export const getFileExports = async (fileName: string): Promise<string[] | undefined> => {
-  const text = await fileParser(fileName);
+  static getFileExports = async (fileName: string): Promise<string[] | undefined> => {
+    const text = await this.fileParser(fileName);
 
-  const matchResult = text.match(/export (const|function) \w*/gi);
+    const matchResult = text.match(/export (const|function) \w*/gi);
 
-  return matchResult?.map((methodName) =>
-    methodName
-      .replace('export const ', '')
-      .replace('export function ', ''));
-};
+    return matchResult?.map((methodName) =>
+      methodName
+        .replace('export const ', '')
+        .replace('export function ', ''));
+  };
 
-export const removeFileExtension = (fileName: string) => fileName.replace('.ts', '');
+  static getComponentExport = async (fileName: string): Promise<string | undefined> => {
+    const exports = await this.getFileExports(fileName);
+
+    return exports?.find((exp) => exp.toLowerCase() === this.removeFileExtension(fileName).toLowerCase());
+  };
+}
