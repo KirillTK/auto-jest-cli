@@ -3,4 +3,5 @@ export enum ArgumentEnum {
   THUNK = 'thunk',
   COMPONENT = 'component',
   MOCK_STORE = 'mockStore',
+  INIT = 'init',
 }
